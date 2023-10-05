@@ -16,12 +16,12 @@ const App = () => {
           <h1>Step 1: Select Form Type and Enter Age</h1>
           <label>
             Enter your age:
-            <input value={age} />
+            <input type='number' value={age} onChange={e=>setAge(e.target.value)} required/>
           </label>
           <br />
           <label>
             Select Form Type:
-            <select onChange={(e) => setStep(parseInt(e.target.value))}>
+            <select onChange={(e) => setStep(parseInt(e.target.value))} required>
               <option value={1}>--Select--</option>
               <option value={2}>Form A</option>
               <option value={3}>Form B</option>
@@ -30,12 +30,12 @@ const App = () => {
           <br />
         </div>
       )}
-      {step === 2 && (
+      {age && step === 2 && (
         <div>
           <FormA age={age} />
         </div>
       )}
-      {step === 3 && (
+      {age && step === 3 && (
         <div>
           <FormB age={age} />
         </div>
