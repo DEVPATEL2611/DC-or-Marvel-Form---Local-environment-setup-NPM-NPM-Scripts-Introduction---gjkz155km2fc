@@ -9,6 +9,21 @@ const App = () => {
   const [formData, setFormData] = useState({});
   const [age, setAge] = useState('');
 
+  const saveFormData = (type,value)=>{
+    let newFormData = {...formData}
+    newFormData[type]=value;
+    setFormData(newFormData);
+    if(type==="show") setStep(4);
+  }
+  useEffect(()=>{
+    if(age>0){
+      saveFormData("age",age);
+    }
+  },[age])
+  useEffect(()=>{
+    if(step===2) saveFormData("formType","Form A")
+    else if(step===3) saveFormData("formType","Form B")
+  },[step])
   return (
     <div>
       {(step === 1 || !age) && (
@@ -32,12 +47,12 @@ const App = () => {
       )}
       {age && step === 2 && (
         <div>
-          <FormA age={age} />
+          <FormA age={age} onSubmit={saveFormData}/>
         </div>
       )}
       {age && step === 3 && (
         <div>
-          <FormB age={age} />
+          <FormB age={age} onSubmit={saveFormData}/>
         </div>
       )}
       {(step === 2 || step === 3) && age ? (
@@ -48,8 +63,11 @@ const App = () => {
 
       {step === 4 && (
         <div>
-          <Summary />
-          <button id='start-over'>Start Over</button>
+          <Summary formData={formData} />
+          <button id='start-over' onClick={()=>{
+            setStep(1);
+            setFormData({});
+          }} >Start Over</button>
         </div>
       )}
     </div>

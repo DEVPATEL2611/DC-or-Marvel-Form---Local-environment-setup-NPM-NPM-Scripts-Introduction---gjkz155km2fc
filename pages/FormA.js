@@ -1,13 +1,15 @@
 'use client';
-import { useState } from 'react';
+import {  useState } from 'react';
 
 function FormA({ onSubmit, age }) {
   const [option,setOption] = useState("");
   const handleSubmit = (event) => {
-    if(value){
-      
-    }
+    event.preventDefault();
+    if(option) onSubmit("show",option);
   };
+
+    
+
   return (
     <form id='dc' onSubmit={handleSubmit}>
       <h2>Form A</h2>
